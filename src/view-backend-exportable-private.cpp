@@ -64,13 +64,22 @@ void ViewBackend::initialize()
 
     m_clientFd = sockets[1];
 
-    // wpe_view_backend_dispatch_set_size(m_backend,
-    //                                    m_clientBundle->initialWidth,
-    //                                    m_clientBundle->initialHeight);
+    // laurence.ejraee Taken from wpebackend-rdk view-backend.cpp:
+    uint32_t width = m_clientBundle->initialWidth;
+    uint32_t height = m_clientBundle->initialHeight;
+
+    const char* width_text = ::getenv("WEBKIT_RESOLUTION_WIDTH");
+    const char* height_text = ::getenv("WEBKIT_RESOLUTION_HEIGHT");
+    if (width_text != nullptr) {
+        width = ::atoi(width_text);
+    }
+    if (height_text != nullptr) {
+        height = ::atoi(height_text);
+    }
 
     wpe_view_backend_dispatch_set_size(m_backend,
-                                       1920,
-                                       1080);
+                                       width,
+                                       height);
 }
 
 int ViewBackend::clientFd()
