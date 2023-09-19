@@ -64,9 +64,13 @@ void ViewBackend::initialize()
 
     m_clientFd = sockets[1];
 
+    // wpe_view_backend_dispatch_set_size(m_backend,
+    //                                    m_clientBundle->initialWidth,
+    //                                    m_clientBundle->initialHeight);
+
     wpe_view_backend_dispatch_set_size(m_backend,
-                                       m_clientBundle->initialWidth,
-                                       m_clientBundle->initialHeight);
+                                       1920,
+                                       1080);
 }
 
 int ViewBackend::clientFd()
